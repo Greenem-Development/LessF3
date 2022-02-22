@@ -1,6 +1,6 @@
-package me.greenem.modding.lessf3.main;
+package org.greenem.modding.lessf3.main;
 
-import me.greenem.modding.lessf3.setup.ClientSetup;
+import org.greenem.modding.lessf3.setup.ClientSetup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
