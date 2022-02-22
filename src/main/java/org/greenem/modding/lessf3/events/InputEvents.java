@@ -1,6 +1,5 @@
 package org.greenem.modding.lessf3.events;
 
-import org.greenem.modding.lessf3.extenders.ExtendedBookEditInput;
 import org.greenem.modding.lessf3.main.LessF3;
 import org.greenem.modding.lessf3.registration.KeyInit;
 import net.minecraft.client.Minecraft;
@@ -28,15 +27,6 @@ public class InputEvents {
         else if(e.getKey()==KeyInit.shortF3.getKey().getValue()) {
             if(e.getAction()==0) {
                 onLessF3ButtonPressed();
-            }
-        }
-
-        if(e.getAction()==0) {
-            if (e.getKey() == KeyInit.testMenu.getKey().getValue()) {
-//                Minecraft.getInstance().setScreen(new Menu2());
-//                Minecraft.getInstance().player.openMenu(new Menu2());
-                Minecraft.getInstance().setScreen(new ExtendedBookEditInput());
-                System.out.println("opened Menu1");
             }
         }
     }
