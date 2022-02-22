@@ -1,4 +1,4 @@
-package org.greenem.general;
+package org.greenem.modding.lessf3.general;
 
 import java.util.regex.Pattern;
 

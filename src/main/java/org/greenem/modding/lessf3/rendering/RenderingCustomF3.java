@@ -1,6 +1,6 @@
 package org.greenem.modding.lessf3.rendering;
 
-import org.greenem.general.Patterns;
+import org.greenem.modding.lessf3.general.Patterns;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import java.util.ArrayList;

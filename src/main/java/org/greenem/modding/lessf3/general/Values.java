@@ -1,4 +1,4 @@
-package org.greenem.general;
+package org.greenem.modding.lessf3.general;
 
 public class Values {
     public static boolean lessF3FilterEnabled = false;
