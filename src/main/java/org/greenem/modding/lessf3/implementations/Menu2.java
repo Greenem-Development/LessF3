@@ -1,8 +1,10 @@
 package org.greenem.modding.lessf3.implementations;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.MultiLineLabel;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TextComponent;
@@ -49,6 +51,11 @@ public class Menu2 extends Screen {
 //        this.commandSuggestions.updateCommandInfo();
 //    }
 
+    @Override
+    public void onClose() {
+        Minecraft.getInstance().popGuiLayer();
+    }
+
     protected void onDone() {
 
     }
@@ -57,6 +64,7 @@ public class Menu2 extends Screen {
 
     }
 
+    @Override
     public void render(PoseStack p1, int p2, int p3, float p4) {
         //if (this.minecraft.level != null) { 0x453670 // -1072689136, -804253680
             this.fillGradient(p1, 0, 0, this.width, this.height, -1072689136 , -804253680);
