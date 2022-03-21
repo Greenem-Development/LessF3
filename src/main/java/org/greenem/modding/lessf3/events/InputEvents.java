@@ -1,6 +1,11 @@
 package org.greenem.modding.lessf3.events;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyboardHandler;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.player.KeyboardInput;
 import org.greenem.modding.lessf3.extenders.ExtendedBookEditInput;
+import org.greenem.modding.lessf3.general.Values;
 import org.greenem.modding.lessf3.main.LessF3;
 import org.greenem.modding.lessf3.registration.KeyInit;
 import net.minecraft.client.Minecraft;
@@ -16,6 +21,7 @@ public class InputEvents {
 
     @SubscribeEvent
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
+        isThatShift(e.getKey(), e.getAction());
         if(e.getKey()==officialF3ButtonCode && KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode) {
             lessF3FilterEnabled = false;
         }
@@ -31,18 +37,19 @@ public class InputEvents {
             }
         }
 
-        if(e.getAction()==0) {
+        /*if(e.getAction()==0) {
             if (e.getKey() == KeyInit.testMenu.getKey().getValue()) {
 //                Minecraft.getInstance().setScreen(new Menu2());
 //                Minecraft.getInstance().player.openMenu(new Menu2());
                 Minecraft.getInstance().setScreen(new ExtendedBookEditInput());
                 System.out.println("opened Menu1");
             }
-        }
+        }*/
     }
 
     @SubscribeEvent
     public static void detectMouseButtons(InputEvent.MouseInputEvent e) {
+        isThatShift(e.getButton(), e.getAction());
         if(e.getButton()==KeyInit.shortF3.getKey().getValue()){
             if(e.getAction()==0) {
                 onLessF3ButtonPressed();
@@ -50,8 +57,22 @@ public class InputEvents {
         }
     }
 
+    private static void isThatShift(int key, int action) {
+        if(key==InputConstants.KEY_LSHIFT || key==InputConstants.KEY_RSHIFT) {
+            if(action==1) {
+                shiftIsHeld = true;
+            }
+            if(action==0) {
+                shiftIsHeld = false;
+            }
+        }
+    }
+
     public static void onLessF3ButtonPressed() {
         if(Minecraft.getInstance().isPaused()) {
+            return;
+        }
+        if(Minecraft.getInstance().player==null) {
             return;
         }
         if(Minecraft.getInstance().screen!=null && Minecraft.getInstance().screen.isPauseScreen()) {
@@ -69,6 +90,9 @@ public class InputEvents {
         else { // Nothing is opened already
             lessF3FilterEnabled = true; // Enable "less F3" mode and open F3
             Minecraft.getInstance().options.renderDebug = true;
+        }
+        if(shiftIsHeld) {
+            Minecraft.getInstance().options.renderDebugCharts = !Minecraft.getInstance().options.renderDebugCharts;
         }
     }
 }
