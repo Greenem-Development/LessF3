@@ -45,6 +45,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 @OnlyIn(Dist.CLIENT)
 public class ExtendedBookEditInputCopy1 extends Screen {
     private static final int TEXT_WIDTH = 114;

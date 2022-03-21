@@ -9,6 +9,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 public class Menu1 implements MenuProvider {
     public Menu1() {
         

@@ -36,6 +36,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 @OnlyIn(Dist.CLIENT)
 public class ExtendedBookEditInput extends Screen {
     public static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("less_f3:textures/gui/settings_background1.png");

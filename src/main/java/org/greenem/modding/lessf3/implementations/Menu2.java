@@ -9,6 +9,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TextComponent;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 public class Menu2 extends Screen {
     protected Button doneButton;
     protected Button cancelButton;

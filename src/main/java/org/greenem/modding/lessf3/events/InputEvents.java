@@ -54,6 +54,11 @@ public class InputEvents {
         if(Minecraft.getInstance().isPaused()) {
             return;
         }
+        if(Minecraft.getInstance().screen!=null && Minecraft.getInstance().screen.isPauseScreen()) {
+//            System.out.println("pauseScreen");
+            return;
+        }
+//        if(!Minecraft.getInstance().isLocalServer() && Minecraft.getInstance().getGame().getCurrentSession().) {}
         if(Minecraft.getInstance().options.renderDebug && !lessF3FilterEnabled) { // Normal F3 opened already
             lessF3FilterEnabled = true; // Switch mode to "less f3" without closing the f3
         }

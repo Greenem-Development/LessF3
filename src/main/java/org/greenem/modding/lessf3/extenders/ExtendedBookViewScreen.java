@@ -28,6 +28,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 public class ExtendedBookViewScreen extends Screen {
     public static final int PAGE_INDICATOR_TEXT_Y_OFFSET = 16;
     public static final int PAGE_TEXT_X_OFFSET = 36;

@@ -39,6 +39,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * THIS WAS AN UNSUCCESSFUL TEST AND WAS NOT USED!
+ * **/
+
 @OnlyIn(Dist.CLIENT)
 public class ExtendedBookEditInputCopy2 extends Screen {
     public static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("textures/gui/settings_background.png");
