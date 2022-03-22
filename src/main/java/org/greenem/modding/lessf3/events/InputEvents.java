@@ -1,18 +1,13 @@
 package org.greenem.modding.lessf3.events;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.player.KeyboardInput;
-import org.greenem.modding.lessf3.extenders.ExtendedBookEditInput;
-import org.greenem.modding.lessf3.general.Values;
-import org.greenem.modding.lessf3.main.LessF3;
-import org.greenem.modding.lessf3.registration.KeyInit;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.greenem.modding.lessf3.main.LessF3;
+import org.greenem.modding.lessf3.registration.KeyInit;
 
 import static org.greenem.modding.lessf3.general.Values.*;
 
@@ -22,8 +17,6 @@ public class InputEvents {
     @SubscribeEvent
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
         isThatShift(e.getKey(), e.getAction());
-//        System.out.println(e.getKey());
-//        System.out.println(KeyInit.veryShortF3.getKey().getValue());
         if(e.getKey()==officialF3ButtonCode && KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode) {
             onlyXYZEnabled = false;
         }
@@ -52,15 +45,6 @@ public class InputEvents {
                 onLessF3ButtonPressed();
             }
         }
-
-        /*if(e.getAction()==0) {
-            if (e.getKey() == KeyInit.testMenu.getKey().getValue()) {
-//                Minecraft.getInstance().setScreen(new Menu2());
-//                Minecraft.getInstance().player.openMenu(new Menu2());
-                Minecraft.getInstance().setScreen(new ExtendedBookEditInput());
-                System.out.println("opened Menu1");
-            }
-        }*/
     }
 
     @SubscribeEvent
@@ -146,18 +130,5 @@ public class InputEvents {
         else { // Nothing is opened already
             onlyXYZEnabled = true; // Enable "less F3" mode and open F3
         }
-        /*if (lessF3FilterEnabled) {
-            lessF3FilterEnabled = false;
-            Minecraft.getInstance().options.renderDebug = false;
-            onlyXYZEnabled = true;
-            System.out.println(1);
-        } else if (onlyXYZEnabled) {
-            onlyXYZEnabled = false;
-            System.out.println(2);
-
-        } else {
-            onlyXYZEnabled = true;
-            System.out.println(3);
-        }*/
     }
 }

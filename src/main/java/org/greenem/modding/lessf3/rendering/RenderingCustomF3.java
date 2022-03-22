@@ -16,7 +16,6 @@ public class RenderingCustomF3 {
             ArrayList<String> list2 = e.getRight();
             list1.clear();
             list1.add("XYZ: " + p.getBlockX() + " " + p.getBlockY() + " " + p.getBlockZ());
-//            System.out.println(list1);
             list2.clear();
         }
     }
@@ -29,7 +28,6 @@ public class RenderingCustomF3 {
 
         // LEFT SIDE
         for (String s : list1) {
-            //System.out.println(s);
             // Start checking everything
             matcher = Patterns.fps2.matcher(s);
             if (matcher.find()) {

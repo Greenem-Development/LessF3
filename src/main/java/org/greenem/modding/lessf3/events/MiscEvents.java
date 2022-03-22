@@ -22,10 +22,10 @@ public class MiscEvents {
     }
 
     public static void detectBadKeybind() {
-        if(KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode) {
+        if(KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode || KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode) {
             if(!warnedAboutBadKeybindAlready) {
                 if(Minecraft.getInstance().player != null) {
-                    String translatedMessage = I18n.get("less_f3.custom.strings.badkeybind");
+                    String translatedMessage = I18n.get("less_f3.custom.strings.bad_keybind");
                     Minecraft.getInstance().player.displayClientMessage(new TextComponent(ChatFormatting.RED + translatedMessage), false);
                     warnedAboutBadKeybindAlready = true;
                 }

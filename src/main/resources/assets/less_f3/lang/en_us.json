@@ -1,5 +1,5 @@
 {
   "key.less_f3.short_f3": "Open less mode F3",
   "key.less_f3.very_short_f3": "Open super-short F3",
-  "less_f3.custom.strings.badkeybind": "You have set the \"Less F3\" key to \"F3\" button. This doesn't let the mod work the right way."
+  "less_f3.custom.strings.bad_keybind": "You have set one of the \"Less F3\" keybinds to \"F3\" button. This doesn't let the mod work the right way."
 }

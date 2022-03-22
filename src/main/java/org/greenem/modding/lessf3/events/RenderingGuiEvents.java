@@ -11,7 +11,6 @@ import static org.greenem.modding.lessf3.general.Values.*;
 
 @Mod.EventBusSubscriber(modid = LessF3.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class RenderingGuiEvents {
-
     @SubscribeEvent
     public static void onDebugOverlay(RenderGameOverlayEvent.Text e)
     {
