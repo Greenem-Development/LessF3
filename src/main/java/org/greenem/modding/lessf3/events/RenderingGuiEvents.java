@@ -16,7 +16,10 @@ public class RenderingGuiEvents {
     public static void onDebugOverlay(RenderGameOverlayEvent.Text e)
     {
         if(lessF3FilterEnabled) {
-            RenderingCustomF3.changeF3Text(e);
+            RenderingCustomF3.renderUsualLessF3Mode(e);
+        }
+        else if (onlyXYZEnabled) {
+            RenderingCustomF3.renderVeryShortF3Mode(e);
         }
     }
 }

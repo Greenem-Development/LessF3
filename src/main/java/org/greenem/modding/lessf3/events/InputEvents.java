@@ -22,6 +22,22 @@ public class InputEvents {
     @SubscribeEvent
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
         isThatShift(e.getKey(), e.getAction());
+//        System.out.println(e.getKey());
+//        System.out.println(KeyInit.veryShortF3.getKey().getValue());
+        if(e.getKey()==officialF3ButtonCode && KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode) {
+            onlyXYZEnabled = false;
+        }
+        else if(e.getKey()==officialF3ButtonCode && onlyXYZEnabled) {
+            if(e.getAction()==0) {
+                onlyXYZEnabled = false;
+                Minecraft.getInstance().options.renderDebug = true; // do I need this
+            }
+        }
+        if(e.getKey()==KeyInit.veryShortF3.getKey().getValue()) {
+            if(e.getAction()==0) {
+                onVeryShortF3ButtonPressed();
+            }
+        }
         if(e.getKey()==officialF3ButtonCode && KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode) {
             lessF3FilterEnabled = false;
         }
@@ -55,6 +71,11 @@ public class InputEvents {
                 onLessF3ButtonPressed();
             }
         }
+        if(e.getButton()==KeyInit.veryShortF3.getKey().getValue()){
+            if(e.getAction()==0) {
+                onVeryShortF3ButtonPressed();
+            }
+        }
     }
 
     private static void isThatShift(int key, int action) {
@@ -86,6 +107,10 @@ public class InputEvents {
         else if (lessF3FilterEnabled) { // Custom F3 opened already
             Minecraft.getInstance().options.renderDebug = false; // Close F3 and disable F3 (maybe later no)
             lessF3FilterEnabled = false;
+        } else if (onlyXYZEnabled) { // Very short custom F3 opened already
+            Minecraft.getInstance().options.renderDebug = true; // Close F3 and disable F3 (maybe later no)
+            onlyXYZEnabled = false;
+            lessF3FilterEnabled = true;
         }
         else { // Nothing is opened already
             lessF3FilterEnabled = true; // Enable "less F3" mode and open F3
@@ -94,5 +119,45 @@ public class InputEvents {
         if(shiftIsHeld) {
             Minecraft.getInstance().options.renderDebugCharts = !Minecraft.getInstance().options.renderDebugCharts;
         }
+    }
+
+    private static void onVeryShortF3ButtonPressed() {
+        if(Minecraft.getInstance().isPaused()) {
+            return;
+        }
+        if(Minecraft.getInstance().player==null) {
+            return;
+        }
+        if(Minecraft.getInstance().screen!=null && Minecraft.getInstance().screen.isPauseScreen()) {
+//            System.out.println("pauseScreen");
+            return;
+        }
+        if(Minecraft.getInstance().options.renderDebug && !lessF3FilterEnabled) { // Normal F3 opened already
+            Minecraft.getInstance().options.renderDebug = false;
+            onlyXYZEnabled = true; // Switch mode to "very less f3" with closing the f3 rendering
+        }
+        else if (lessF3FilterEnabled) { // Custom F3 opened already
+            Minecraft.getInstance().options.renderDebug = false; // Close F3 and disable F3 (maybe later no)
+            lessF3FilterEnabled = false;
+            onlyXYZEnabled = true;
+        } else if (onlyXYZEnabled) { // Very short custom F3 opened already
+            onlyXYZEnabled = false;
+        }
+        else { // Nothing is opened already
+            onlyXYZEnabled = true; // Enable "less F3" mode and open F3
+        }
+        /*if (lessF3FilterEnabled) {
+            lessF3FilterEnabled = false;
+            Minecraft.getInstance().options.renderDebug = false;
+            onlyXYZEnabled = true;
+            System.out.println(1);
+        } else if (onlyXYZEnabled) {
+            onlyXYZEnabled = false;
+            System.out.println(2);
+
+        } else {
+            onlyXYZEnabled = true;
+            System.out.println(3);
+        }*/
     }
 }

@@ -1,5 +1,7 @@
 package org.greenem.modding.lessf3.rendering;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
 import org.greenem.modding.lessf3.general.Patterns;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -7,7 +9,19 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class RenderingCustomF3 {
-    public static void changeF3Text(RenderGameOverlayEvent.Text e) {
+    public static void renderVeryShortF3Mode(RenderGameOverlayEvent.Text e) {
+        Player p = Minecraft.getInstance().player;
+        if(p!=null) {
+            ArrayList<String> list1 = e.getLeft();
+            ArrayList<String> list2 = e.getRight();
+            list1.clear();
+            list1.add("XYZ: " + p.getBlockX() + " " + p.getBlockY() + " " + p.getBlockZ());
+//            System.out.println(list1);
+            list2.clear();
+        }
+    }
+
+    public static void renderUsualLessF3Mode(RenderGameOverlayEvent.Text e) {
         ArrayList<String> list1 = e.getLeft();
         ArrayList<String> list2 = e.getRight();
         String[] modified = new String[list1.size()];

@@ -11,10 +11,12 @@ public class KeyInit {
 //    }
 
     public static KeyMapping shortF3;
+    public static KeyMapping veryShortF3;
 //    public static KeyMapping testMenu;
 
     public static void init() {
         shortF3 = registerKey("short_f3", InputConstants.UNKNOWN.getValue(), KeyMapping.CATEGORY_INTERFACE);
+        veryShortF3 = registerKey("very_short_f3", InputConstants.UNKNOWN.getValue(), KeyMapping.CATEGORY_INTERFACE);
 //        testMenu = registerKey("test_menu", InputConstants.KEY_N, KeyMapping.CATEGORY_INTERFACE);
     }
 
