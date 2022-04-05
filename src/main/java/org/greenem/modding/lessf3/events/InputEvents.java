@@ -16,7 +16,10 @@ public class InputEvents {
 
     @SubscribeEvent
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
+        if(!checkOkConditions()) return;
         isThatShift(e.getKey(), e.getAction());
+        System.out.println(e.getAction());
+        if(e.getAction()==1) isThatSomeSpecialKey(e.getKey()); // only here?
         if(e.getKey()==officialF3ButtonCode && KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode) {
             onlyXYZEnabled = false;
         }
@@ -49,6 +52,7 @@ public class InputEvents {
 
     @SubscribeEvent
     public static void detectMouseButtons(InputEvent.MouseInputEvent e) {
+        if(!checkOkConditions()) return;
         isThatShift(e.getButton(), e.getAction());
         if(e.getButton()==KeyInit.shortF3.getKey().getValue()){
             if(e.getAction()==0) {
@@ -73,17 +77,54 @@ public class InputEvents {
         }
     }
 
-    public static void onLessF3ButtonPressed() {
-        if(Minecraft.getInstance().isPaused()) {
+    // F3 + A + K
+    // F3 + K + A
+    // F3 + K
+    // F3 + A
+
+    private static void isThatSomeSpecialKey(int key) {
+        if(key==InputConstants.KEY_F3) {
+            f3IsHeld = true;
+            isSomeSpecialF3KeyHeld = false;
+//            isSomethingExceptSpecialF3KeyHeld = false;
             return;
         }
+        boolean specKey = key==InputConstants.KEY_A || key==InputConstants.KEY_B || key==InputConstants.KEY_C ||
+                key==InputConstants.KEY_D || key==InputConstants.KEY_F || key==InputConstants.KEY_G ||
+                key==InputConstants.KEY_H || key==InputConstants.KEY_I || key==InputConstants.KEY_L ||
+                key==InputConstants.KEY_N || key==InputConstants.KEY_P || key==InputConstants.KEY_Q;
+        if(f3IsHeld && specKey) {
+            isSomeSpecialF3KeyHeld = true;
+        } else if(f3IsHeld) {
+//            isSomethingExceptSpecialF3KeyHeld = true;
+        } else { // maybe not necessary
+            isSomeSpecialF3KeyHeld = false;
+//            isSomethingExceptSpecialF3KeyHeld = false;
+        }
+    }
+
+    private static boolean checkOkConditions() {
+        if(Minecraft.getInstance().isPaused()) {
+            return false;
+        }
         if(Minecraft.getInstance().player==null) {
-            return;
+            return false;
         }
         if(Minecraft.getInstance().screen!=null && Minecraft.getInstance().screen.isPauseScreen()) {
 //            System.out.println("pauseScreen");
-            return;
+            return false;
         }
+        if(Minecraft.getInstance().player.isDeadOrDying()) {
+            return false;
+        }
+        if(Minecraft.getInstance().screen != null) {
+            return false;
+        }
+        return true;
+    }
+
+    public static void onLessF3ButtonPressed() {
+        if(!checkOkConditions()) return;
 //        if(!Minecraft.getInstance().isLocalServer() && Minecraft.getInstance().getGame().getCurrentSession().) {}
         if(Minecraft.getInstance().options.renderDebug && !lessF3FilterEnabled) { // Normal F3 opened already
             lessF3FilterEnabled = true; // Switch mode to "less f3" without closing the f3
@@ -106,16 +147,7 @@ public class InputEvents {
     }
 
     private static void onVeryShortF3ButtonPressed() {
-        if(Minecraft.getInstance().isPaused()) {
-            return;
-        }
-        if(Minecraft.getInstance().player==null) {
-            return;
-        }
-        if(Minecraft.getInstance().screen!=null && Minecraft.getInstance().screen.isPauseScreen()) {
-//            System.out.println("pauseScreen");
-            return;
-        }
+        if(!checkOkConditions()) return;
         if(Minecraft.getInstance().options.renderDebug && !lessF3FilterEnabled) { // Normal F3 opened already
             Minecraft.getInstance().options.renderDebug = false;
             onlyXYZEnabled = true; // Switch mode to "very less f3" with closing the f3 rendering

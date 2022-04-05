@@ -6,4 +6,7 @@ public class Values {
     public static boolean warnedAboutBadKeybindAlready = false;
     public static final int officialF3ButtonCode = 292; // is it same on different versions etc.?
     public static boolean shiftIsHeld = false;
+    public static boolean f3IsHeld = false;
+    public static boolean isSomeSpecialF3KeyHeld = false;
+//    public static boolean isSomethingExceptSpecialF3KeyHeld = false;
 }

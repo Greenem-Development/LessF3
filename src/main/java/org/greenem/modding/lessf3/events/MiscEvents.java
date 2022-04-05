@@ -1,17 +1,21 @@
 package org.greenem.modding.lessf3.events;
 
-import org.greenem.modding.lessf3.main.LessF3;
-import org.greenem.modding.lessf3.registration.KeyInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.greenem.modding.lessf3.general.Values;
+import org.greenem.modding.lessf3.main.LessF3;
+import org.greenem.modding.lessf3.registration.KeyInit;
 
-import static org.greenem.modding.lessf3.general.Values.*;
+import static org.greenem.modding.lessf3.general.Values.officialF3ButtonCode;
+import static org.greenem.modding.lessf3.general.Values.warnedAboutBadKeybindAlready;
 
 @Mod.EventBusSubscriber(modid = LessF3.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class MiscEvents {
