@@ -28,6 +28,7 @@ public class RenderingCustomF3 {
 
         // LEFT SIDE
         for (String s : list1) {
+//            System.out.println("\"" + s + "\"");
             // Start checking everything
             matcher = Patterns.fps2.matcher(s);
             if (matcher.find()) {

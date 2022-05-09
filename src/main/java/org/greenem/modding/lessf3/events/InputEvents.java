@@ -25,8 +25,10 @@ public class InputEvents {
         }
         else if(e.getKey()==officialF3ButtonCode && onlyXYZEnabled) {
             if(e.getAction()==0) {
-                onlyXYZEnabled = false;
-                Minecraft.getInstance().options.renderDebug = true; // do I need this
+                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
+                    onlyXYZEnabled = false;
+                    Minecraft.getInstance().options.renderDebug = true; // do I need this
+                }
             }
         }
         if(e.getKey()==KeyInit.veryShortF3.getKey().getValue()) {
@@ -39,8 +41,10 @@ public class InputEvents {
         }
         else if(e.getKey()==officialF3ButtonCode && lessF3FilterEnabled) {
             if(e.getAction()==0) {
-                lessF3FilterEnabled = false;
-                Minecraft.getInstance().options.renderDebug = true;
+                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
+                    lessF3FilterEnabled = false;
+                    Minecraft.getInstance().options.renderDebug = true;
+                }
             }
         }
         else if(e.getKey()==KeyInit.shortF3.getKey().getValue()) {
@@ -83,24 +87,24 @@ public class InputEvents {
     // F3 + A
 
     private static void isThatSomeSpecialKey(int key) {
-        if(key==InputConstants.KEY_F3) {
-            f3IsHeld = true;
-            isSomeSpecialF3KeyHeld = false;
-//            isSomethingExceptSpecialF3KeyHeld = false;
-            return;
-        }
         boolean specKey = key==InputConstants.KEY_A || key==InputConstants.KEY_B || key==InputConstants.KEY_C ||
                 key==InputConstants.KEY_D || key==InputConstants.KEY_F || key==InputConstants.KEY_G ||
                 key==InputConstants.KEY_H || key==InputConstants.KEY_I || key==InputConstants.KEY_L ||
                 key==InputConstants.KEY_N || key==InputConstants.KEY_P || key==InputConstants.KEY_Q;
-        if(f3IsHeld && specKey) {
-            isSomeSpecialF3KeyHeld = true;
-        } else if(f3IsHeld) {
-//            isSomethingExceptSpecialF3KeyHeld = true;
-        } else { // maybe not necessary
+        if(key==InputConstants.KEY_F3) {
+            f3IsHeld = true;
             isSomeSpecialF3KeyHeld = false;
-//            isSomethingExceptSpecialF3KeyHeld = false;
+            if(f3IsHeld && specKey) {
+                isSomeSpecialF3KeyHeld = true;
+            }
         }
+        else {
+            f3IsHeld = false;
+            isSomeSpecialF3KeyHeld = false;
+        }
+
+        System.out.println(f3IsHeld);
+        System.out.println(isSomeSpecialF3KeyHeld);
     }
 
     private static boolean checkOkConditions() {
