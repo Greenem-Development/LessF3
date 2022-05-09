@@ -24,7 +24,7 @@ public class InputEvents {
             onlyXYZEnabled = false;
         }
         else if(e.getKey()==officialF3ButtonCode && onlyXYZEnabled) {
-            if(e.getAction()==0) {
+            if(e.getAction()==1 || e.getAction()==2) {
                 if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
                     onlyXYZEnabled = false;
                     Minecraft.getInstance().options.renderDebug = true; // do I need this
@@ -40,7 +40,7 @@ public class InputEvents {
             lessF3FilterEnabled = false;
         }
         else if(e.getKey()==officialF3ButtonCode && lessF3FilterEnabled) {
-            if(e.getAction()==0) {
+            if(e.getAction()==1 || e.getAction()==2) {
                 if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
                     lessF3FilterEnabled = false;
                     Minecraft.getInstance().options.renderDebug = true;
