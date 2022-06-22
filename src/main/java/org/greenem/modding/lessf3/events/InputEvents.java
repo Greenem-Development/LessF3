@@ -6,6 +6,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.greenem.modding.lessf3.general.Values;
 import org.greenem.modding.lessf3.main.LessF3;
 import org.greenem.modding.lessf3.registration.KeyInit;
 
@@ -23,12 +24,24 @@ public class InputEvents {
         if(e.getKey()==officialF3ButtonCode && KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode) {
             onlyXYZEnabled = false;
         }
+        if(f3IsHeld) {
+            System.out.println(isSomeSpecialF3KeyHeld);
+        }
+//        if(f3IsHeld) {
+//            if(onlyXYZEnabled) {
+//                Minecraft.getInstance().options.renderDebug = false;
+//            }
+//            if(lessF3FilterEnabled) {
+//                Minecraft.getInstance().options.renderDebug = true;
+//            }
+//            return;
+//        }
         else if(e.getKey()==officialF3ButtonCode && onlyXYZEnabled) {
             if(e.getAction()==1 || e.getAction()==2) {
-                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
+//                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
                     onlyXYZEnabled = false;
                     Minecraft.getInstance().options.renderDebug = true; // do I need this
-                }
+//                }
             }
         }
         if(e.getKey()==KeyInit.veryShortF3.getKey().getValue()) {
@@ -37,14 +50,16 @@ public class InputEvents {
             }
         }
         if(e.getKey()==officialF3ButtonCode && KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode) {
-            lessF3FilterEnabled = false;
+//            if(e.getAction()==1) {
+                lessF3FilterEnabled = false;
+//            }
         }
         else if(e.getKey()==officialF3ButtonCode && lessF3FilterEnabled) {
             if(e.getAction()==1 || e.getAction()==2) {
-                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
+//                if(!(f3IsHeld && isSomeSpecialF3KeyHeld)) {
                     lessF3FilterEnabled = false;
                     Minecraft.getInstance().options.renderDebug = true;
-                }
+//                }
             }
         }
         else if(e.getKey()==KeyInit.shortF3.getKey().getValue()) {
