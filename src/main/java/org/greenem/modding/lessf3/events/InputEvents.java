@@ -17,57 +17,47 @@ public class InputEvents {
     @SubscribeEvent
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
         if(!checkOkConditions()) return;
-        isThatShift(e.getKey(), e.getAction());
+        detectShift(e.getKey(), e.getAction());
+
         boolean overlappingUsualModeKey = KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode;
         boolean overlappingShorterModeKey = KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode;
         boolean currentlyPressedF3 = e.getKey()==officialF3ButtonCode;
-        if(currentlyPressedF3 && (overlappingShorterModeKey)) {
-            shorterLessF3Enabled = false;
-        }
-        else if(e.getKey()==officialF3ButtonCode && shorterLessF3Enabled) {
-            if(e.getAction()==0) {
+        boolean currentlyPressedUsualLessF3 = e.getKey()==KeyInit.usualShortF3.getKey().getValue();
+        boolean currentlyPressedVeryLessF3 = e.getKey()==KeyInit.veryShortF3.getKey().getValue();
+
+        if(currentlyPressedF3){
+            if(overlappingUsualModeKey || overlappingShorterModeKey) {
                 shorterLessF3Enabled = false;
-                Minecraft.getInstance().options.renderDebug = true; // do I need this
+            }
+            else if(usualLessF3Enabled || shorterLessF3Enabled) {
+                if (e.getAction() == 0) {
+                    usualLessF3Enabled = false;
+                    shorterLessF3Enabled = false;
+                    Minecraft.getInstance().options.renderDebug = true; // do I need this?
+                }
             }
         }
-        if(e.getKey()==KeyInit.veryShortF3.getKey().getValue()) {
-            if(e.getAction()==0) {
-                onVeryShortF3ButtonPressed();
-            }
-        }
-        if(e.getKey()==officialF3ButtonCode && KeyInit.shortF3.getKey().getValue()==officialF3ButtonCode) {
-            usualLessF3Enabled = false;
-        }
-        else if(e.getKey()==officialF3ButtonCode && usualLessF3Enabled) {
-            if(e.getAction()==0) {
-                usualLessF3Enabled = false;
-                Minecraft.getInstance().options.renderDebug = true;
-            }
-        }
-        else if(e.getKey()==KeyInit.shortF3.getKey().getValue()) {
-            if(e.getAction()==0) {
-                onLessF3ButtonPressed();
-            }
+        else if (e.getAction() == 0) {
+            if(currentlyPressedUsualLessF3) onUsualLessF3ButtonPressed();
+            else if(currentlyPressedVeryLessF3) onVeryShortF3ButtonPressed();
         }
     }
 
     @SubscribeEvent
     public static void detectMouseButtons(InputEvent.MouseInputEvent e) {
         if(!checkOkConditions()) return;
-        isThatShift(e.getButton(), e.getAction());
-        if(e.getButton()==KeyInit.shortF3.getKey().getValue()){
-            if(e.getAction()==0) {
-                onLessF3ButtonPressed();
-            }
-        }
-        if(e.getButton()==KeyInit.veryShortF3.getKey().getValue()){
-            if(e.getAction()==0) {
-                onVeryShortF3ButtonPressed();
-            }
+        detectShift(e.getButton(), e.getAction());
+
+        boolean currentlyPressedUsualLessF3 = e.getButton()==KeyInit.usualShortF3.getKey().getValue();
+        boolean currentlyPressedVeryLessF3 = e.getButton()==KeyInit.veryShortF3.getKey().getValue();
+
+        if(e.getAction()==0) {
+            if(currentlyPressedUsualLessF3) onUsualLessF3ButtonPressed();
+            else if(currentlyPressedVeryLessF3) onVeryShortF3ButtonPressed();
         }
     }
 
-    private static void isThatShift(int key, int action) {
+    private static void detectShift(int key, int action) {
         if(key==InputConstants.KEY_LSHIFT || key==InputConstants.KEY_RSHIFT) {
             if(action==1) {
                 shiftIsHeld = true;
@@ -78,9 +68,8 @@ public class InputEvents {
         }
     }
 
-    public static void onLessF3ButtonPressed() {
+    public static void onUsualLessF3ButtonPressed() {
         if(!checkOkConditions()) return;
-//        if(!Minecraft.getInstance().isLocalServer() && Minecraft.getInstance().getGame().getCurrentSession().) {}
         if(Minecraft.getInstance().options.renderDebug && !usualLessF3Enabled) { // Normal F3 opened already
             usualLessF3Enabled = true; // Switch mode to "less f3" without closing the f3
         }
@@ -137,5 +126,6 @@ public class InputEvents {
             return false;
         }
         return true;
+//        if(!Minecraft.getInstance().isLocalServer() && Minecraft.getInstance().getGame().getCurrentSession().) {}
     }
 }
