@@ -70,7 +70,7 @@ public class InputEvents {
         }
     }
 
-    private static boolean detectSpecialKeys(int key, int action) {
+    private static boolean detectSpecialKeys(int key, int action) { // action: 1 - just pressed, 2 - long enough, 0 - stopped holding
         boolean f3 = key==InputConstants.KEY_F3;
         boolean spec = key==InputConstants.KEY_A || key==InputConstants.KEY_B || key==InputConstants.KEY_C ||
                 key==InputConstants.KEY_D || key==InputConstants.KEY_F || key==InputConstants.KEY_G ||
@@ -80,7 +80,7 @@ public class InputEvents {
             if(f3SpecKeysStage==0) f3SpecKeysStage = 1;
         }
         else if(spec && action==1 && f3SpecKeysStage==1) {
-            if(f3SpecKeysStage==1) f3SpecKeysStage = 2;
+            f3SpecKeysStage = 2;
         }
         else if(f3 && action==0) {
             if(f3SpecKeysStage==2) {

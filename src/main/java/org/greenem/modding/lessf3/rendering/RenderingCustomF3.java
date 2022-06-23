@@ -74,6 +74,9 @@ public class RenderingCustomF3 {
             if (s.contains("Targeted Block: ")) {
                 modified[0] = s.substring(2);
             }
+            else if (s.contains("Targeted Fluid: ")) {
+                modified[0] = s.substring(2);
+            }
             if (s.startsWith("minecraft:")) {
                 modified[1] = s;
                 break;
