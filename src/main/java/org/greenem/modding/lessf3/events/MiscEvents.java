@@ -11,7 +11,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static org.greenem.modding.lessf3.general.Values.*;
+import static org.greenem.modding.lessf3.general.Values.officialF3ButtonCode;
+import static org.greenem.modding.lessf3.general.Values.warnedAboutBadKeybindAlready;
 
 @Mod.EventBusSubscriber(modid = LessF3.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class MiscEvents {
