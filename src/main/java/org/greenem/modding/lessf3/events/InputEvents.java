@@ -19,6 +19,7 @@ public class InputEvents {
     public static void detectKeyboardButtons(InputEvent.KeyInputEvent e) {
         if(!checkOkConditions()) return;
         detectShift(e.getKey(), e.getAction());
+        if(!detectSpecialKeys(e.getKey(), e.getAction())) return;
 
         boolean overlappingUsualModeKey = KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode;
         boolean overlappingShorterModeKey = KeyInit.veryShortF3.getKey().getValue()==officialF3ButtonCode;
@@ -67,6 +68,29 @@ public class InputEvents {
                 shiftIsHeld = false;
             }
         }
+    }
+
+    private static boolean detectSpecialKeys(int key, int action) {
+        boolean f3 = key==InputConstants.KEY_F3;
+        boolean spec = key==InputConstants.KEY_A || key==InputConstants.KEY_B || key==InputConstants.KEY_C ||
+                key==InputConstants.KEY_D || key==InputConstants.KEY_F || key==InputConstants.KEY_G ||
+                key==InputConstants.KEY_H || key==InputConstants.KEY_I || key==InputConstants.KEY_L ||
+                key==InputConstants.KEY_N || key==InputConstants.KEY_P || key==InputConstants.KEY_Q;
+        if(f3 && action==1) {
+            if(f3SpecKeysStage==0) f3SpecKeysStage = 1;
+        }
+        else if(spec && action==1 && f3SpecKeysStage==1) {
+            if(f3SpecKeysStage==1) f3SpecKeysStage = 2;
+        }
+        else if(f3 && action==0) {
+            if(f3SpecKeysStage==2) {
+                f3SpecKeysStage = 0;
+                return false;
+            } else {
+                f3SpecKeysStage = 0;
+            }
+        }
+        return true;
     }
 
     public static void onUsualLessF3ButtonPressed() {
