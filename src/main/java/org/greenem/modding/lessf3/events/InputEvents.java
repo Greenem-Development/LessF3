@@ -2,6 +2,7 @@ package org.greenem.modding.lessf3.events;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,34 +71,38 @@ public class InputEvents {
 
     public static void onUsualLessF3ButtonPressed() {
         if(!checkOkConditions()) return;
-        if(Minecraft.getInstance().options.renderDebug && !usualLessF3Enabled) { // Normal F3 opened already
+        Options opt = Minecraft.getInstance().options;
+
+        if(opt.renderDebug && !usualLessF3Enabled) { // Normal F3 opened already
             usualLessF3Enabled = true; // Switch mode to "less f3" without closing the f3
         }
         else if (usualLessF3Enabled) { // Custom F3 opened already
-            Minecraft.getInstance().options.renderDebug = false; // Close F3 and disable F3 (maybe later no)
+            opt.renderDebug = false; // Close F3 and disable F3 (maybe later no)
             usualLessF3Enabled = false;
         } else if (shorterLessF3Enabled) { // Very short custom F3 opened already
-            Minecraft.getInstance().options.renderDebug = true; // Close F3 and disable F3 (maybe later no)
+            opt.renderDebug = true; // Close F3 and disable F3 (maybe later no)
             shorterLessF3Enabled = false;
             usualLessF3Enabled = true;
         }
         else { // Nothing is opened already
             usualLessF3Enabled = true; // Enable "less F3" mode and open F3
-            Minecraft.getInstance().options.renderDebug = true;
+            opt.renderDebug = true;
         }
         if(shiftIsHeld) {
-            Minecraft.getInstance().options.renderDebugCharts = !Minecraft.getInstance().options.renderDebugCharts;
+            opt.renderDebugCharts = !opt.renderDebugCharts;
         }
     }
 
     private static void onVeryShortF3ButtonPressed() {
         if(!checkOkConditions()) return;
-        if(Minecraft.getInstance().options.renderDebug && !usualLessF3Enabled) { // Normal F3 opened already
-            Minecraft.getInstance().options.renderDebug = false;
+        Options opt = Minecraft.getInstance().options;
+
+        if(opt.renderDebug && !usualLessF3Enabled) { // Normal F3 opened already
+            opt.renderDebug = false;
             shorterLessF3Enabled = true; // Switch mode to "very less f3" with closing the f3 rendering
         }
         else if (usualLessF3Enabled) { // Custom F3 opened already
-            Minecraft.getInstance().options.renderDebug = false; // Close F3 and disable F3 (maybe later no)
+            opt.renderDebug = false; // Close F3 and disable F3 (maybe later no)
             usualLessF3Enabled = false;
             shorterLessF3Enabled = true;
         } else if (shorterLessF3Enabled) { // Very short custom F3 opened already
